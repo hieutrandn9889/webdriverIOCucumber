@@ -1,0 +1,25 @@
+# To execute this docker-compose yml file use `docker-compose -f docker-compose-v3.yml up`
+# Add the `-d` flag at the end for detached execution
+# To stop the execution, hit Ctrl+C, and then `docker-compose -f docker-compose-v3.yml down`
+version: "3"
+services:
+
+  selenium_hub:
+    image: selenium/hub
+    ports:
+      - 4444:4444
+  
+  nexus_5_10.0:
+    image: budtmo/docker-android-x86-10.0
+    privileged: true
+    depends_on:
+      - selenium_hub
+    ports:
+      - 6080:6080
+    volumes:
+      - $PWD/apk:/root/tmp/apk
+    environment:
+      - DEVICE=Nexus 5
+      - CONNECT_TO_GRID=true
+      - APPIUM=true
+      - SELENIUM_HOST=selenium_hub

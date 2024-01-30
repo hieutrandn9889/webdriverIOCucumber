@@ -1,0 +1,6 @@
+node_modules
+package-lock.json
+allure-report/
+reporter/allure-results
+reporter/json
+reporter/cucumber_report.html
